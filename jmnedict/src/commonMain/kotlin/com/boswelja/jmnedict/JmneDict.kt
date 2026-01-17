@@ -8,7 +8,7 @@ import kotlinx.serialization.decodeFromString
 import kotlin.collections.emptyList
 
 suspend fun streamJmmeDict(): Sequence<Entry> {
-    return streamDict()
+    return streamDict("jmnedict.xml")
         .asEntrySequence()
 }
 

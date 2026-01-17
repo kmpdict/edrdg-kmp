@@ -17,10 +17,10 @@ public val Serializer: XML = XML {
     }
 }
 
-internal expect suspend fun readCompressedBytes(): Source
+internal expect suspend fun readCompressedBytes(filename: String): Source
 
-public suspend fun streamDict(): Sequence<String> {
-    val compressedSource = readCompressedBytes()
+public suspend fun streamDict(filename: String): Sequence<String> {
+    val compressedSource = readCompressedBytes(filename)
     return compressedSource
         .zstdDecompress()
         .buffer()

@@ -6,7 +6,7 @@ import com.boswelja.edrdg.core.streamDict
 import kotlinx.serialization.decodeFromString
 
 suspend fun streamJmDict(): Sequence<Entry> {
-    return streamDict()
+    return streamDict("jmdict.xml")
         .asEntrySequence()
 }
 
