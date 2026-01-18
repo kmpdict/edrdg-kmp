@@ -7,7 +7,8 @@ import okio.buffer
 
 public val Serializer: XML = XML {
     defaultPolicy {
-        pedantic = false
+        isCachingEnabled = false
+        pedantic = true
         autoPolymorphic = true
         throwOnRepeatedElement = true
         isStrictBoolean = true
