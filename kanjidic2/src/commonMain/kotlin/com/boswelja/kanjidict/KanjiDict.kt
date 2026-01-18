@@ -23,7 +23,7 @@ internal val Serializer = XML {
 }
 
 suspend fun streamKanjiDict(): Sequence<Character> {
-    return streamDict()
+    return streamDict("kanjidict.xml")
         .asCharacterSequence()
 }
 

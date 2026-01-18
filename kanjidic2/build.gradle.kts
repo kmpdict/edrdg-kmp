@@ -58,6 +58,7 @@ detekt {
 edrdgDict {
     dictUrl = URI("https://www.edrdg.org/kanjidic/kanjidic2.xml.gz")
     packageName = "com.boswelja.kanjidict"
+    dictFilename = "kanjidict.xml"
 }
 
 benchmark {

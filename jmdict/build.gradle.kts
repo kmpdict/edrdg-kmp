@@ -51,6 +51,7 @@ detekt {
 edrdgDict {
     dictUrl = URI("ftp://ftp.edrdg.org/pub/Nihongo/JMdict.gz")
     packageName = "com.boswelja.jmdict"
+    dictFilename = "jmdict.xml"
 }
 
 benchmark {

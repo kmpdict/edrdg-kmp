@@ -29,6 +29,11 @@ interface EdrdgExtension {
      * Defaults to `true`.
      */
     val generateMetadata: Property<Boolean>
+
+    /**
+     * The name of the dictionary file that will be copied to resources.
+     */
+    val dictFilename: Property<String>
 }
 
 class JmDictGeneratorPlugin : Plugin<Project> {
@@ -40,17 +45,18 @@ class JmDictGeneratorPlugin : Plugin<Project> {
         )
         config.generateMetadata.convention(true)
 
-        val dictFile = target.layout.buildDirectory.file("resources/edrdg/dict.xml")
-        val relNotesFile = target.layout.buildDirectory.file("resources/edrdg/changelog.xml")
-        val dtdFile = target.layout.buildDirectory.file("resources/edrdg/dtd.xml")
-        val metadataFile = target.layout.buildDirectory.file("resources/edrdg/metadata.properties")
-
         // Register the download task
         val downloadDictTask = target.tasks.register(
             "downloadDict",
             DownloadDictTask::class.java
         ) {
             requireProperty(config::dictUrl, "ftp://ftp.edrdg.org/pub/Nihongo/JMdict.gz")
+            requireProperty(config::dictFilename, "dict.xml")
+
+            val dictFile = target.layout.buildDirectory.file("resources/edrdg/${config.dictFilename.get()}")
+            val relNotesFile = target.layout.buildDirectory.file("resources/edrdg/changelog.xml")
+            val dtdFile = target.layout.buildDirectory.file("resources/edrdg/dtd.xml")
+            val metadataFile = target.layout.buildDirectory.file("resources/edrdg/metadata.properties")
 
             it.dictUrl.set(config.dictUrl)
             it.outputDict.set(dictFile)
