@@ -1,12 +1,15 @@
 package com.boswelja.edrdg.core
 
 import com.squareup.zstd.okio.zstdDecompress
+import nl.adaptivity.xmlutil.serialization.FormatCache
 import nl.adaptivity.xmlutil.serialization.XML
 import okio.Source
 import okio.buffer
 
 public val Serializer: XML = XML {
+    isCachingEnabled = false
     defaultPolicy {
+        formatCache = FormatCache.Dummy
         pedantic = false
         autoPolymorphic = true
         throwOnRepeatedElement = true
