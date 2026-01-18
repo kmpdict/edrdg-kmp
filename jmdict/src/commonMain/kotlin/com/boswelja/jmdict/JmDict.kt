@@ -3,6 +3,7 @@ package com.boswelja.jmdict
 import com.boswelja.edrdg.core.Serializer
 import com.boswelja.edrdg.core.chunkedUntil
 import com.boswelja.edrdg.core.streamDict
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.decodeFromString
 
 suspend fun streamJmDict(): Sequence<Entry> {
@@ -17,7 +18,12 @@ internal fun Sequence<String>.asEntrySequence(): Sequence<Entry> {
         .chunked(100)
         .flatMap { entryLines ->
             if (entryLines.isNotEmpty()) {
-                Serializer.decodeFromString<JMdict>("<JMdict>${entryLines.flatten().joinToString(separator = "")}</JMdict>").entries
+                val target = "<JMdict>${entryLines.flatten().joinToString(separator = "")}</JMdict>"
+                try {
+                    Serializer.decodeFromString<JMdict>(target).entries
+                } catch (e: Exception) {
+                    throw SerializationException("Failed deserializing:\n$target", e)
+                }
             } else emptyList()
         }
 }

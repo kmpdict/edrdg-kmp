@@ -1,26 +1,13 @@
 package com.boswelja.kanjidict
 
+import com.boswelja.edrdg.core.Serializer
 import com.boswelja.edrdg.core.chunkedUntil
 import com.boswelja.edrdg.core.streamDict
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.decodeFromString
-import nl.adaptivity.xmlutil.ExperimentalXmlUtilApi
-import nl.adaptivity.xmlutil.serialization.XML
 import nl.adaptivity.xmlutil.serialization.XmlElement
-
-@OptIn(ExperimentalXmlUtilApi::class)
-internal val Serializer = XML {
-    defaultPolicy {
-        pedantic = false
-        autoPolymorphic = true
-        throwOnRepeatedElement = true
-        isStrictBoolean = true
-        isStrictAttributeNames = true
-        isXmlFloat = true
-        verifyElementOrder = true
-    }
-}
 
 suspend fun streamKanjiDict(): Sequence<Character> {
     return streamDict("kanjidict.xml")
@@ -34,7 +21,12 @@ internal fun Sequence<String>.asCharacterSequence(): Sequence<Character> {
         .chunked(100)
         .flatMap { entryLines ->
             if (entryLines.isNotEmpty()) {
-                Serializer.decodeFromString<KanjiDictCharacters>("<kanjidic2>${entryLines.flatten().joinToString(separator = "")}</kanjidic2>").characters
+                val target = "<kanjidic2>${entryLines.flatten().joinToString(separator = "")}</kanjidic2>"
+                try {
+                    Serializer.decodeFromString<KanjiDictCharacters>(target).characters
+                } catch (e: Exception) {
+                    throw SerializationException("Failed deserializing:\n$target", e)
+                }
             } else emptyList()
         }
 }

@@ -19,10 +19,11 @@ internal fun Sequence<String>.asEntrySequence(): Sequence<Entry> {
         .chunked(100)
         .flatMap { entryLines ->
             if (entryLines.isNotEmpty()) {
+                val target = "<JMnedict>${entryLines.flatten().joinToString(separator = "")}</JMnedict>"
                 try {
-                    Serializer.decodeFromString<JMnedict>("<JMnedict>${entryLines.flatten().joinToString(separator = "")}</JMnedict>").entries
+                    Serializer.decodeFromString<JMnedict>(target).entries
                 } catch (e: Exception) {
-                    throw SerializationException("Failed deserializing:\n$entryLines", e)
+                    throw SerializationException("Failed deserializing:\n$target", e)
                 }
             } else emptyList()
         }
