@@ -24,7 +24,7 @@ internal fun Sequence<String>.asCharacterSequence(): Sequence<Character> {
                 val target = "<kanjidic2>${entryLines.flatten().joinToString(separator = "")}</kanjidic2>"
                 try {
                     Serializer.decodeFromString<KanjiDictCharacters>(target).characters
-                } catch (e: Exception) {
+                } catch (e: SerializationException) {
                     throw SerializationException("Failed deserializing:\n$target", e)
                 }
             } else emptyList()

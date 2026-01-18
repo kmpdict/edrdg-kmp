@@ -21,7 +21,7 @@ internal fun Sequence<String>.asEntrySequence(): Sequence<Entry> {
                 val target = "<JMdict>${entryLines.flatten().joinToString(separator = "")}</JMdict>"
                 try {
                     Serializer.decodeFromString<JMdict>(target).entries
-                } catch (e: Exception) {
+                } catch (e: SerializationException) {
                     throw SerializationException("Failed deserializing:\n$target", e)
                 }
             } else emptyList()
