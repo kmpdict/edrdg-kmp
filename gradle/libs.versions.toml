@@ -7,7 +7,7 @@ kotlinx-io = "0.8.2"
 
 benchmark = "0.4.15"
 
-xmldtd-kt = "1.0.0-beta01"
+xmldtd-kt = "1.0.0-beta02"
 
 kotlinpoet = "2.2.0"
 
