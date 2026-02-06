@@ -5,7 +5,7 @@ kotlin = "2.3.0"
 kotlinx-coroutines = "1.10.2"
 kotlinx-io = "0.8.2"
 
-benchmark = "0.4.15"
+benchmark = "0.4.16"
 
 xmldtd-kt = "1.0.0-beta02"
 
