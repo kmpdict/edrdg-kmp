@@ -9,7 +9,7 @@ benchmark = "0.4.16"
 
 xmldtd-kt = "1.0.0-beta02"
 
-kotlinpoet = "2.2.0"
+kotlinpoet = "2.3.0"
 
 [libraries]
 kotlin-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
