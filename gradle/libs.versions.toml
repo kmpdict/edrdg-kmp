@@ -3,7 +3,7 @@ agp = "9.2.1"
 kotlin = "2.4.0"
 
 kotlinx-coroutines = "1.11.0"
-kotlinx-io = "0.9.0"
+kotlinx-io = "0.9.1"
 
 benchmark = "0.4.17"
 
