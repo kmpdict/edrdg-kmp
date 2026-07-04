@@ -15,6 +15,9 @@ abstract class CopyResourcesTask : DefaultTask() {
     @get:InputFile
     abstract val jmDictFile: RegularFileProperty
 
+    @get:InputFile
+    abstract val dtdFile: RegularFileProperty
+
     /**
      * The directory to store generated source files in.
      */
@@ -27,7 +30,7 @@ abstract class CopyResourcesTask : DefaultTask() {
     @TaskAction
     fun copyJmDictToResources() {
         fs.copy(Action { t ->
-            t.from(jmDictFile)
+            t.from(jmDictFile, dtdFile)
             t.into(outputDirectory)
         })
     }

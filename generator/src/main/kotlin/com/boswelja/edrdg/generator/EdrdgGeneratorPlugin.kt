@@ -130,6 +130,7 @@ class JmDictGeneratorPlugin : Plugin<Project> {
                     val generatedResDir = target.layout.buildDirectory.dir("generated/edrdgDict/jvmMainResources")
                     val copyResTask = target.tasks.register("copyJvmMainDictResources", CopyResourcesTask::class.java) {
                         it.jmDictFile.set(downloadDictTask.get().outputDict)
+                        it.dtdFile.set(downloadDictTask.get().outputDtd)
                         it.outputDirectory.set(generatedResDir)
                         it.dependsOn(downloadDictTask)
                     }
@@ -139,6 +140,7 @@ class JmDictGeneratorPlugin : Plugin<Project> {
                     val generatedResDir = target.layout.buildDirectory.dir("generated/edrdgDict/androidMainResources")
                     val copyResTask = target.tasks.register("copyAndroidMainDictResources", CopyAndroidResourcesTask::class.java) {
                         it.jmDictFile.set(downloadDictTask.get().outputDict)
+                        it.dtdFile.set(downloadDictTask.get().outputDtd)
                         it.outputDirectory.set(generatedResDir)
                         it.dependsOn(downloadDictTask)
                     }

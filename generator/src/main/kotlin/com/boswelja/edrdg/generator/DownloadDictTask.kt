@@ -54,7 +54,7 @@ abstract class DownloadDictTask : DefaultTask() {
             }
         }
 
-        val jmDictStream = outputDict.get().asFile.sink().zstdCompress().buffer()
+        val jmDictStream = outputDict.get().asFile.sink().buffer()
         val releaseNotesOutputStream = outputReleaseNotes.get().asFile.outputStream().writer()
         val dtdOutputStream = outputDtd.get().asFile.outputStream().writer()
 
@@ -73,15 +73,11 @@ abstract class DownloadDictTask : DefaultTask() {
                 if (!finishedRelNotes) {
                     if (line.startsWith("<!DOCTYPE")) {
                         finishedRelNotes = true
-                        jmDictStream.writeUtf8(line)
-                        jmDictStream.writeUtf8("\n")
                         dtdOutputStream.appendLine(line)
                     } else {
                         releaseNotesOutputStream.appendLine(line)
                     }
                 } else if (!finishedDtd) {
-                    jmDictStream.writeUtf8(line)
-                    jmDictStream.writeUtf8("\n")
                     dtdOutputStream.appendLine(line)
                     if (line.startsWith("]>")) {
                         finishedDtd = true
