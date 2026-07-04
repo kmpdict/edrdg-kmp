@@ -1,12 +1,14 @@
 package com.boswelja.edrdg.core
 
 import com.squareup.zstd.okio.zstdDecompress
-import kotlinx.serialization.serializer
 import nl.adaptivity.xmlutil.serialization.XML
 import nl.adaptivity.xmlutil.xmlStreaming
 import okio.Source
 import okio.buffer
 
+/**
+ * The default serializer to use for deserializing dictionary files.
+ */
 public val Serializer: XML = XML.v1 {
     defaultToGenericParser = true
 }
@@ -21,6 +23,9 @@ public suspend fun streamDict(filename: String): Sequence<String> {
         .readLines()
 }
 
+/**
+ * Decodes some XML String [target] into [T], with entity expansion enabled.
+ */
 public inline fun <reified T> XML.decodeFromStringExpandEntities(
     target: String
 ): T {
