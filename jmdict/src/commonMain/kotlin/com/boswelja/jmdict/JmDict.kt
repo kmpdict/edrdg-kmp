@@ -2,9 +2,9 @@ package com.boswelja.jmdict
 
 import com.boswelja.edrdg.core.Serializer
 import com.boswelja.edrdg.core.chunkedUntil
+import com.boswelja.edrdg.core.decodeFromStringExpandEntities
 import com.boswelja.edrdg.core.streamDict
 import kotlinx.serialization.SerializationException
-import kotlinx.serialization.decodeFromString
 
 suspend fun streamJmDict(): Sequence<Entry> {
     return streamDict("jmdict.xml")
@@ -20,7 +20,7 @@ internal fun Sequence<String>.asEntrySequence(): Sequence<Entry> {
             if (entryLines.isNotEmpty()) {
                 val target = "<JMdict>${entryLines.flatten().joinToString(separator = "")}</JMdict>"
                 try {
-                    Serializer.decodeFromString<JMdict>(target).entries
+                    Serializer.decodeFromStringExpandEntities<JMdict>(target).entries
                 } catch (e: SerializationException) {
                     throw SerializationException("Failed deserializing:\n$target", e)
                 }
