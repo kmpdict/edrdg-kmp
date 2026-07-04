@@ -54,7 +54,7 @@ abstract class DownloadDictTask : DefaultTask() {
             }
         }
 
-        val jmDictStream = outputDict.get().asFile.sink().buffer()
+        val jmDictStream = outputDict.get().asFile.sink().zstdCompress().buffer()
         val releaseNotesOutputStream = outputReleaseNotes.get().asFile.outputStream().writer()
         val dtdOutputStream = outputDtd.get().asFile.outputStream().writer()
 
