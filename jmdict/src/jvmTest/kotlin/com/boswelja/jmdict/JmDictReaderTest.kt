@@ -26,4 +26,14 @@ class JmDictReaderTest {
         }
         assertTrue(hasNonEnglish)
     }
+
+    @Test
+    fun streamJmDict_parsesInternalEntities() = runTest {
+        val hasPcData = streamJmDict().any { entry ->
+            entry.senses.any { sense ->
+                sense.dials.any { println(it); it.isNotEmpty() }
+            }
+        }
+        assertTrue(hasPcData)
+    }
 }

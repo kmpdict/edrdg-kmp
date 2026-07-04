@@ -73,11 +73,15 @@ abstract class DownloadDictTask : DefaultTask() {
                 if (!finishedRelNotes) {
                     if (line.startsWith("<!DOCTYPE")) {
                         finishedRelNotes = true
+                        jmDictStream.writeUtf8(line)
+                        jmDictStream.writeUtf8("\n")
                         dtdOutputStream.appendLine(line)
                     } else {
                         releaseNotesOutputStream.appendLine(line)
                     }
                 } else if (!finishedDtd) {
+                    jmDictStream.writeUtf8(line)
+                    jmDictStream.writeUtf8("\n")
                     dtdOutputStream.appendLine(line)
                     if (line.startsWith("]>")) {
                         finishedDtd = true
