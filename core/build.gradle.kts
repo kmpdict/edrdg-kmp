@@ -21,7 +21,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(libs.kotlinx.serialization.xml)
-            implementation(libs.okio.core)
+            api(libs.okio.core)
             implementation(libs.okio.zstd)
             implementation(libs.kotlinx.coroutines.core)
         }

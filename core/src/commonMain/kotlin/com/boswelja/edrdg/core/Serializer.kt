@@ -1,26 +1,19 @@
 package com.boswelja.edrdg.core
 
 import com.squareup.zstd.okio.zstdDecompress
-import nl.adaptivity.xmlutil.serialization.FormatCache
 import nl.adaptivity.xmlutil.serialization.XML
+import nl.adaptivity.xmlutil.xmlStreaming
 import okio.Source
 import okio.buffer
 
-public val Serializer: XML = XML {
-    isCachingEnabled = false
-    defaultPolicy {
-        formatCache = FormatCache.Dummy
-        pedantic = false
-        autoPolymorphic = true
-        throwOnRepeatedElement = true
-        isStrictBoolean = true
-        isStrictAttributeNames = true
-        isXmlFloat = true
-        verifyElementOrder = true
-    }
+/**
+ * The default serializer to use for deserializing dictionary files.
+ */
+public val Serializer: XML = XML.v1 {
+    defaultToGenericParser = true
 }
 
-internal expect suspend fun readCompressedBytes(filename: String): Source
+public expect suspend fun readCompressedBytes(filename: String): Source
 
 public suspend fun streamDict(filename: String): Sequence<String> {
     val compressedSource = readCompressedBytes(filename)
@@ -28,4 +21,17 @@ public suspend fun streamDict(filename: String): Sequence<String> {
         .zstdDecompress()
         .buffer()
         .readLines()
+}
+
+/**
+ * Decodes some XML String [target] into [T], with entity expansion enabled.
+ */
+public inline fun <reified T> XML.decodeFromStringExpandEntities(
+    target: String
+): T {
+    val xr = when {
+        config.defaultToGenericParser -> xmlStreaming.newGenericReader(target, true)
+        else -> xmlStreaming.newReader(target, true)
+    }
+    return decodeFromReader(xr)
 }
