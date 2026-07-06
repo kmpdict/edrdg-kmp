@@ -9,7 +9,7 @@ import kotlinx.serialization.SerializationException
 import okio.buffer
 
 suspend fun streamJmDict(): Sequence<Entry> {
-    val dtd = readCompressedBytes("dtd.xml").buffer().readUtf8()
+    val dtd = readCompressedBytes("jmdict_dtd.xml").buffer().readUtf8()
     return streamDict("jmdict.xml")
         .asEntrySequence(dtd)
 }

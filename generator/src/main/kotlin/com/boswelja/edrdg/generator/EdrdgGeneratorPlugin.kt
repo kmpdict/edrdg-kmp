@@ -34,6 +34,11 @@ interface EdrdgExtension {
      * The name of the dictionary file that will be copied to resources.
      */
     val dictFilename: Property<String>
+
+    /**
+     * The name of the file containing the DTD definition that will be copied to resources.
+     */
+    val dtdFilename: Property<String>
 }
 
 class JmDictGeneratorPlugin : Plugin<Project> {
@@ -55,7 +60,7 @@ class JmDictGeneratorPlugin : Plugin<Project> {
 
             val dictFile = target.layout.buildDirectory.file("resources/edrdg/${config.dictFilename.get()}")
             val relNotesFile = target.layout.buildDirectory.file("resources/edrdg/changelog.xml")
-            val dtdFile = target.layout.buildDirectory.file("resources/edrdg/dtd.xml")
+            val dtdFile = target.layout.buildDirectory.file("resources/edrdg/${config.dtdFilename.get()}")
             val metadataFile = target.layout.buildDirectory.file("resources/edrdg/metadata.properties")
 
             it.dictUrl.set(config.dictUrl)

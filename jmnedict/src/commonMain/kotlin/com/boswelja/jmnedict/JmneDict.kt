@@ -11,7 +11,7 @@ import okio.buffer
 import kotlin.collections.emptyList
 
 suspend fun streamJmmeDict(): Sequence<Entry> {
-    val dtd = readCompressedBytes("dtd.xml").buffer().readUtf8()
+    val dtd = readCompressedBytes("jmnedict_dtd.xml").buffer().readUtf8()
     return streamDict("jmnedict.xml")
         .asEntrySequence(dtd)
 }
