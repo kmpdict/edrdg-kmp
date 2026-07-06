@@ -28,6 +28,7 @@ include(
     ":jmdict",
     ":jmnedict",
     "kanjidic2",
+    ":integration-tests"
 )
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
