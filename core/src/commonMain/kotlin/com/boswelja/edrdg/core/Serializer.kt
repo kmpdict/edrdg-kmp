@@ -1,6 +1,7 @@
 package com.boswelja.edrdg.core
 
 import com.squareup.zstd.okio.zstdDecompress
+import nl.adaptivity.xmlutil.serialization.FormatCache
 import nl.adaptivity.xmlutil.serialization.XML
 import nl.adaptivity.xmlutil.xmlStreaming
 import okio.Source
@@ -11,6 +12,9 @@ import okio.buffer
  */
 public val Serializer: XML = XML.v1 {
     defaultToGenericParser = true
+    policy {
+        formatCache = FormatCache.Dummy
+    }
 }
 
 public expect suspend fun readCompressedBytes(filename: String): Source
