@@ -60,7 +60,7 @@ class JmDictGeneratorPlugin : Plugin<Project> {
 
             val dictFile = target.layout.buildDirectory.file("resources/edrdg/${config.dictFilename.get()}")
             val relNotesFile = target.layout.buildDirectory.file("resources/edrdg/changelog.xml")
-            val dtdFile = target.layout.buildDirectory.file("resources/edrdg/${config.dtdFilename.get()}.xml")
+            val dtdFile = target.layout.buildDirectory.file("resources/edrdg/${config.dtdFilename.get()}")
             val metadataFile = target.layout.buildDirectory.file("resources/edrdg/metadata.properties")
 
             it.dictUrl.set(config.dictUrl)
