@@ -12,7 +12,7 @@ import nl.adaptivity.xmlutil.serialization.XmlElement
 import okio.buffer
 
 suspend fun streamKanjiDict(): Sequence<Character> {
-    val dtd = readCompressedBytes("dtd.xml").buffer().readUtf8()
+    val dtd = readCompressedBytes("kanjidict_dtd.xml").buffer().readUtf8()
     return streamDict("kanjidict.xml")
         .asCharacterSequence(dtd)
 }
