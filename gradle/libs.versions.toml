@@ -31,7 +31,7 @@ androidx-test-runner = { module = "androidx.test:runner", version = "1.7.0" }
 
 boswelja-xmldtd = { module = "io.github.boswelja.xmldtd:codegen", version.ref = "xmldtd-kt" }
 
-okio-core = { module = "com.squareup.okio:okio", version = "3.17.0" }
+okio-core = { module = "com.squareup.okio:okio", version = "3.18.1" }
 okio-zstd = { module = "com.squareup.zstd:zstd-kmp-okio", version = "0.4.0" }
 
 kotlinpoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinpoet" }
